@@ -9,10 +9,13 @@ CLIENTES_API_URL = "http://44.223.54.207:8001/clientes"
 PEDIDOS_API_URL = "http://44.223.54.207:8001/pedidos"
 DETALLE_PEDIDOS_API_URL = "http://44.223.54.207:8001/detalle_pedidos"
 
+# Nombre del bucket de S3
+S3_BUCKET = "bucket-para-ingesta"
+
 # Cargar las credenciales de AWS automáticamente
 def load_aws_credentials():
     try:
-        # Crear una sesión de boto3 (automáticamente buscará las credenciales en las variables de entorno)
+        # Crear una sesión de boto3
         session = boto3.Session()
 
         # Crear un cliente de S3
@@ -64,9 +67,7 @@ def upload_to_s3(s3_client, file_name, bucket, object_name=None):
         print(f"Error al subir el archivo a S3: {e}")
 
 def main():
-    # Obtener el cliente de S3 cargando las credenciales
     s3_client = load_aws_credentials()
-    S3_BUCKET = os.getenv("S3_BUCKET")
 
     # Ingesta de clientes
     clientes_data = fetch_data(CLIENTES_API_URL)
