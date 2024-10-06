@@ -3,9 +3,9 @@ import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 
 S3_BUCKET = os.getenv("S3_BUCKET", "bucket-para-ingesta")
-CLIENTES_API_URL = "http://44.223.54.207:8001/clientes"
-PEDIDOS_API_URL = "http://44.223.54.207:8001/pedidos"
-DETALLE_PEDIDOS_API_URL = "http://44.223.54.207:8001/detalle_pedidos"
+LIBROS_API_URL = "http://107.20.212.250:8080/api/libros"
+CATEGORIAS_API_URL = "http://107.20.212.250:8080/api/categorias"
+AUTORES_API_URL = "http://107.20.212.250:8080/api/autores"
 
 def upload_to_s3(s3_client, file_name, bucket, folder, object_name=None):
     if file_name is None or not os.path.exists(file_name):
