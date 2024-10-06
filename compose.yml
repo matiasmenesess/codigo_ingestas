@@ -3,38 +3,26 @@ services:
   ingesta01:
     build:
       context: ./ingesta01
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - S3_BUCKET=bucket-para-ingesta
     volumes:
       - ./ingesta01:/app
+      - ~/.aws:/root/.aws  # Montar el archivo de credenciales
     command: >
       bash -c "while true; do python ingesta01.py && sleep 3600; done"
-  
+
   ingesta02:
     build:
       context: ./ingesta02
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - S3_BUCKET=bucket-para-ingesta
     volumes:
       - ./ingesta02:/app
+      - ~/.aws:/root/.aws  # Montar el archivo de credenciales
     command: >
       bash -c "while true; do python ingesta02.py && sleep 3600; done"
 
   ingesta03:
     build:
       context: ./ingesta03
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - S3_BUCKET=bucket-para-ingesta
     volumes:
       - ./ingesta03:/app
+      - ~/.aws:/root/.aws  # Montar el archivo de credenciales
     command: >
       bash -c "while true; do python ingesta03.py && sleep 3600; done"
