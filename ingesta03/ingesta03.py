@@ -2,16 +2,13 @@ import requests
 import csv
 import boto3
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # URL del microservicio MongoDB API
 API_URL = "http://107.20.212.250:8000/reviews"
 
 # Configuración de AWS desde las variables de entorno
 S3_BUCKET = os.getenv("S3_BUCKET")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_ACCESS_KEY_ID = "ASIAQR5DRZIJVF35QDAN"
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN")
 S3_FOLDER = "review/"
