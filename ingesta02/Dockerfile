@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copiar el archivo de requisitos y el código de la aplicación al contenedor
 COPY requirements.txt requirements.txt
-COPY app.py app.py
+COPY ingesta02.py ingesta02.py
 
 # Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
