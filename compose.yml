@@ -11,7 +11,7 @@ services:
     volumes:
       - ./ingesta01:/app
     command: >
-      bash -c "while true; do python app.py && sleep 3600; done"
+      bash -c "while true; do python ingesta01.py && sleep 3600; done"
   
   ingesta02:
     build:
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./ingesta02:/app
     command: >
-      bash -c "while true; do python app.py && sleep 3600; done"
+      bash -c "while true; do python ingesta02.py && sleep 3600; done"
 
   ingesta03:
     build:
@@ -37,4 +37,4 @@ services:
     volumes:
       - ./ingesta03:/app
     command: >
-      bash -c "while true; do python app.py && sleep 3600; done"
+      bash -c "while true; do python ingesta03.py && sleep 3600; done"
