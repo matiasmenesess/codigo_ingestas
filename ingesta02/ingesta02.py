@@ -73,4 +73,16 @@ def main():
     # Ingesta de categorías
     categorias_data = fetch_data(CATEGORIAS_API_URL)
     categorias_csv_filename = 'categorias_data.csv'
-    save_to
+    save_to_csv(categorias_data, categorias_csv_filename)
+    upload_to_s3(s3_client, categorias_csv_filename, S3_BUCKET)
+
+    # Ingesta de autores
+    autores_data = fetch_data(AUTORES_API_URL)
+    autores_csv_filename = 'autores_data.csv'
+    save_to_csv(    autores_data = fetch_data(AUTORES_API_URL)
+    autores_csv_filename = 'autores_data.csv'
+    save_to_csv(autores_data, autores_csv_filename)
+    upload_to_s3(s3_client, autores_csv_filename, S3_BUCKET)
+
+if __name__ == "__main__":
+    main()
