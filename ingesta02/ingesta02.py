@@ -35,15 +35,16 @@ def save_to_csv(data, filename):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            # Escribir encabezados usando las llaves del primer elemento de la lista
-            writer.writerow(data[0].keys())
+            first_key = list(data[0].keys())[0] 
+            writer.writerow([first_key])
             
-            # Escribir los registros
+            # Escribir los valores solo del primer atributo
             for row in data:
-                writer.writerow(row.values())
+                writer.writerow([row[first_key]])
         print(f"Datos guardados en formato CSV en {filename}.")
     else:
         print("No hay datos para guardar en CSV.")
+
 
 def load_aws_credentials():
     try:
