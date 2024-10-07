@@ -3,6 +3,7 @@ import requests
 import csv
 import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
+import json
 
 S3_BUCKET = os.getenv("S3_BUCKET", "bucket-para-ingesta")
 LIBROS_API_URL = "http://107.20.212.250:8080/api/libros"
@@ -24,27 +25,40 @@ def upload_to_s3(s3_client, file_name, bucket, folder, object_name=None):
 def fetch_data(api_url):
     try:
         response = requests.get(api_url)
-        response.raise_for_status()  # Lanza una excepción si hay un error HTTP
+        response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error al obtener los datos de la API: {e}")
         return None
+
+def extract_first_attribute_if_json(value):
+    try:
+        # Intentar cargar el valor como JSON (si ya es un diccionario no hace falta convertir)
+        if isinstance(value, str):
+            value = json.loads(value)  # Convertir cadena a diccionario
+        
+        # Si es un diccionario, extraemos el primer atributo
+        if isinstance(value, dict):
+            return list(value.values())[0]
+        else:
+            return value  # Si no es un diccionario, devolver el valor tal cual
+    except (ValueError, TypeError):  # Si no es un JSON válido, devolver el valor tal cual
+        return value
 
 def save_to_csv(data, filename):
     if data:
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            first_key = list(data[0].keys())[0] 
-            writer.writerow([first_key])
+            writer.writerow(data[0].keys())
             
-            # Escribir los valores solo del primer atributo
             for row in data:
-                writer.writerow([row[first_key]])
+                # Revisar cada valor de la fila y extraer el primer atributo si es un JSON
+                new_row = [extract_first_attribute_if_json(value) for value in row.values()]
+                writer.writerow(new_row)
         print(f"Datos guardados en formato CSV en {filename}.")
     else:
         print("No hay datos para guardar en CSV.")
-
 
 def load_aws_credentials():
     try:
