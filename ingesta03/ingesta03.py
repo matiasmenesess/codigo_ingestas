@@ -33,13 +33,12 @@ def save_to_csv(data, filename):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            # Escribir encabezado solo con el primer atributo
-            first_key = list(data[0].keys())[0]  # Obtener la primera llave del diccionario
-            writer.writerow([first_key])
+            # Escribir encabezados usando las llaves del primer elemento de la lista
+            writer.writerow(data[0].keys())
             
-            # Escribir los valores solo del primer atributo
+            # Escribir los registros
             for row in data:
-                writer.writerow([row[first_key]])
+                writer.writerow(row.values())
         print(f"Datos guardados en formato CSV en {filename}.")
     else:
         print("No hay datos para guardar en CSV.")
