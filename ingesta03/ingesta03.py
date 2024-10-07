@@ -33,10 +33,8 @@ def save_to_csv(data, filename):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            # Escribir encabezados usando las llaves del primer elemento de la lista
             writer.writerow(data[0].keys())
             
-            # Escribir los registros
             for row in data:
                 writer.writerow(row.values())
         print(f"Datos guardados en formato CSV en {filename}.")
