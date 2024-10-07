@@ -33,20 +33,19 @@ def fetch_data(api_url):
         return None
 
 def save_to_csv(data, filename):
-    """Función para guardar los datos obtenidos en formato CSV"""
     if data:
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            # Escribir encabezados usando las llaves del primer elemento de la lista
-            writer.writerow(data[0].keys())
+            first_key = list(data[0].keys())[0]  
+            writer.writerow([first_key])
             
-            # Escribir los registros
             for row in data:
-                writer.writerow(row.values())
+                writer.writerow([row[first_key]])
         print(f"Datos guardados en formato CSV en {filename}.")
     else:
         print("No hay datos para guardar en CSV.")
+
 
 def load_aws_credentials():
     """Función para cargar las credenciales de AWS y crear un cliente S3"""
