@@ -48,7 +48,6 @@ def save_to_csv(data, filename):
 
 
 def load_aws_credentials():
-    """Función para cargar las credenciales de AWS y crear un cliente S3"""
     try:
         session = boto3.Session()
         return session.client('s3')
